@@ -223,11 +223,7 @@ EVALUATION: 90/100 (Grade A)
 
 ## ⚠️ Disclaimer
 
-**MoodMate is an AI wellness assistant for self-tracking and is NOT a substitute for professional medical or psychiatric advice.** If you are in crisis, please contact:
-
-- **988 Suicide & Crisis Lifeline:** Call/text 988 or visit [988lifeline.org](https://988lifeline.org/)
-- **Emergency Services:** Call 911 (US) or your local emergency number
-- **Crisis Text Line:** Text HOME to 741741
+**MoodMate is an AI wellness assistant for self-tracking and is NOT a substitute for professional medical or psychiatric advice.** 
 
 Always consult healthcare providers before starting new supplements or treatments.
 
