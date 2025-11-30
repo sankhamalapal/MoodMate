@@ -1,97 +1,248 @@
-
 # 🌟 MoodMate – AI Mental Wellness Check-In & Action Assistant
 
-**MoodMate** is a multi-agent AI system designed to provide empathetic mental wellness check-ins and generate personalized, evidence-based action plans. Built using the **Google Agent Development Kit (ADK)** and **Gemini 2.5**, it moves beyond simple conversation to provide structured wellness analysis and concrete steps for improvement.
+<div align="center">
 
-This project was developed as a Capstone for the **5-Day AI Agents Intensive Course with Google (Agents for Good track)**.
+![MoodMate Banner](https://github.com/sankhamalapal/MoodMate/blob/main/MoodMate.png)
+
+**An empathetic multi-agent AI system providing structured mental wellness support through personalized check-ins and evidence-based action plans.**
+
+*Capstone Project for the 5-Day AI Agents Intensive Course with Google (Agents for Good track)*
+
+</div>
 
 ---
 
 ## 🚩 The Problem
-Mental wellness support often faces two extremes: generic, impersonal advice found in search engines, or the high barrier of entry for professional therapy. Individuals feeling overwhelmed, stressed, or having trouble sleeping often need immediate, accessible, and structured guidance to help them navigate their current state before issues escalate.
+
+Mental wellness support exists at two extremes with a critical gap in between:
+
+**Generic Digital Tools** provide one-size-fits-all advice without personalization or severity assessment.
+
+**Professional Services** have barriers like cost, wait times, and the psychological threshold of seeking formal treatment.
+
+**The Gap:** Many people experiencing stress, anxiety, sleep disruption, or emotional fatigue need immediate, accessible, personalized guidance with concrete action steps—but have nowhere to turn.
+
+**MoodMate bridges this gap.**
+
+---
 
 ## 💡 The Solution
-MoodMate acts as a compassionate wellness partner using a **Sequential Multi-Agent System**. It replicates a triage and support process by:
-1.  **Listening:** Conducting an empathetic intake interview.
-2.  **Analyzing:** Quantifying wellness metrics (Mood, Stress, Sleep) to determine severity.
-3.  **Planning:** Generating a specific, feasible action plan using custom tools (Breathing exercises, Supplements, Sleep hygiene).
-4.  **Evaluating:** Self-correcting and grading the plan to ensure it is safe, feasible, and personalized.
+
+MoodMate provides structured wellness support through a **four-stage sequential workflow**:
+
+```
+┌─────────────┐     ┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+│   LISTEN    │ --> │   ANALYZE   │ --> │    PLAN     │ --> │  EVALUATE   │
+└─────────────┘     └─────────────┘     └─────────────┘     └─────────────┘
+ Empathetic          Compute              Generate            Quality
+ Check-In            Wellness Score       Personalized        Assurance
+ Interview           & Severity           Action Plan         Review
+```
+
+### The Four Stages
+
+1. **🗣️ Listen** – Empathetic interview gathering mood, stress, sleep, energy, stressors, and symptoms
+2. **🧠 Analyze** – Compute wellness score `(mood + (10-stress) + sleep)/3` and classify severity (CRITICAL/HIGH/MODERATE/LOW)
+3. **📝 Plan** – Generate personalized actions: breathing exercises, vitamins/supplements, sleep strategies, weekly habits
+4. **⚖️ Evaluate** – Validate plan quality across coverage, feasibility, evidence-base, personalization, and balance
 
 ---
 
 ## 🏗️ Architecture
 
-MoodMate utilizes the `SequentialAgent` pattern from the Google ADK to chain four specialized agents together. Each agent passes its context to the next, ensuring a cohesive workflow.
+MoodMate uses a **Sequential Multi-Agent System** built with Google ADK:
 
-### The Agent Chain:
-1.  **🗣️ CheckInAgent:**
-    * **Role:** Empathetic listener.
-    * **Task:** Greets the user, gathers data on mood/stress/sleep, and summarizes input.
-2.  **🧠 AnalysisAgent:**
-    * **Role:** Diagnostician.
-    * **Task:** Calculates a "Wellness Score" and severity level; identifies key themes.
-    * **Tool:** `calculate_wellness_score`.
-3.  **📝 ActionPlannerAgent:**
-    * **Role:** Wellness Coach.
-    * **Task:** Creates a prioritized action plan (Immediate, Nutrition, Sleep, Habits).
-    * **Tools:** `get_breathing_exercises`, `get_vitamin_recommendations`, `get_sleep_hygiene_tips`.
-4.  **⚖️ EvaluatorAgent:**
-    * **Role:** Quality Assurance.
-    * **Task:** Reviews the generated plan for coverage and feasibility; assigns a grade (A-F).
+### System Flow
 
----
+```
+                         User Input
+                             │
+                             ▼
+                  ┌──────────────────┐
+                  │ CheckInAgent     │ → Gathers wellness data
+                  │ (No tools)       │
+                  └──────────────────┘
+                             │
+                             ▼
+                  ┌──────────────────┐
+                  │ AnalysisAgent    │ → Computes wellness score
+                  │ Tool: calculate_ │   & severity classification
+                  │ wellness_score   │
+                  └──────────────────┘
+                             │
+                             ▼
+                  ┌──────────────────┐
+                  │ActionPlannerAgent│ → Creates personalized plan
+                  │ Tools:           │
+                  │ • breathing      │
+                  │ • vitamins       │
+                  │ • sleep_hygiene  │
+                  └──────────────────┘
+                             │
+                             ▼
+                  ┌──────────────────┐
+                  │ EvaluatorAgent   │ → Validates plan quality
+                  │ (No tools)       │   & assigns grade
+                  └──────────────────┘
+                             │
+                             ▼
+                      Final Output
+```
 
-## 🛠️ Tech Stack
+### Agent Responsibilities
 
-* **Framework:** [Google Agent Development Kit (ADK)](https://pypi.org/project/google-adk/)
-* **Model:** Gemini 2.5 Flash Lite (`gemini-2.5-flash-lite`)
-* **Language:** Python 3.x
-* **Environment:** Jupyter Notebook / Google Colab
+| Agent | Role | Tools | Key Output |
+|-------|------|-------|-----------|
+| **CheckInAgent** | Empathetic Listener | None | Structured wellness data |
+| **AnalysisAgent** | Diagnostic Analyst | `calculate_wellness_score` | Wellness score + severity |
+| **ActionPlannerAgent** | Wellness Coach | `get_breathing_exercises`<br>`get_vitamin_recommendations`<br>`get_sleep_hygiene_tips` | Personalized action plan |
+| **EvaluatorAgent** | Quality Reviewer | None | Quality score + grade |
+
+### Technology Stack
+
+- **Google ADK** – Multi-agent orchestration framework
+- **Gemini 2.5 Flash Lite** – Efficient LLM with tool-calling capabilities
+- **Python 3.8+** – Core implementation
+- **Jupyter/Colab** – Interactive environment
 
 ---
 
 ## 🚀 Setup & Installation
 
 ### Prerequisites
-* A Google Cloud Project with the Gemini API enabled.
-* A Google AI Studio API Key.
 
-### Steps
+- Python 3.8+
+- Google Cloud account
+- Gemini API key ([Get one here](https://aistudio.google.com/apikey))
 
-1.  **Install Dependencies:**
-    ```bash
-    pip install google-adk google-genai
-    ```
+### Installation
 
-2.  **Configure API Key:**
-    Set your Google API key in your environment variables.
-    ```python
-    import os
-    os.environ["GOOGLE_API_KEY"] = "YOUR_API_KEY_HERE"
-    ```
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/moodmate.git
+   cd moodmate
+   ```
 
-3.  **Run the System:**
-    Open the notebook `MoodMate_Agent.ipynb` and run all cells.
+2. **Install dependencies**
+   ```bash
+   pip install google-adk google-genai
+   ```
+
+3. **Configure your Google API Key**
+
+   To use this project, you need to configure your **Google API key**.
+
+   #### 1. Create an API key
+   If you don't already have one, generate a new API key in [**Google AI Studio**](https://aistudio.google.com/apikey).
+
+   #### 2. Add the API key as a Secret in Google Colab
+   - Open **Secrets** from the Colab menu (🔑 key icon in left sidebar)
+   - Click **Add new secret**
+   - Set the **Name** to: `GOOGLE_API_KEY`
+   - Paste your key into the **Value** field and click **Save**
+   - Make sure the secret is enabled (**checkbox checked**) so it attaches to your notebook
+
+   #### 3. Important
+   ⚠️ **Do not hard-code or paste your API key directly into the notebook**, especially if you plan to share it publicly.
+   
+
+4. **Run the notebook**
+   ```bash
+   jupyter notebook MoodMate_Agent.ipynb
+   ```
+   Or upload to [Google Colab](https://colab.research.google.com/)
 
 ---
 
 ## 💻 Usage
 
-To start an interactive session, run the `main()` function within the notebook:
+### Interactive Chat Mode
 
 ```python
+# Natural conversation with MoodMate
+await chat_interface()
+```
+
+**Commands:**
+- Answer wellness questions naturally
+- Type `generate plan` when ready for your action plan
+- Type `quit` or `exit` to end
+
+### Automated Demo Mode
+
+```python
+# Full pipeline with pre-populated data
 await main()
 ```
 
-## 🧪 Evaluation
+### Run Evaluation Tests
 
-The project includes a test harness to validate agent logic against synthetic scenarios (e.g., "High Stress," "Mild Wellness Dip").
-
-```
-# Run evaluation test cases
+```python
+# Test system with synthetic scenarios
 run_evaluation()
 ```
 
-##### Disclaimer : MoodMate is an AI assistant for wellness tracking and is not a substitute for professional medical or psychiatric advice. If you are in crisis, please contact emergency services or a dedicated crisis hotline.
+---
 
+## 📊 Example Output
 
+**Input:** Mood: 4/10, Stress: 8/10, Sleep: 4/10
+
+**Output:**
+```
+Wellness Score: 3.3/10
+Severity: CRITICAL
+
+IMMEDIATE ACTIONS:
+✓ Box Breathing (5 min)
+✓ 10-minute outdoor walk
+
+SUPPLEMENTS (HIGH PRIORITY):
+• Magnesium 200-400mg before bed
+• B-Complex vitamins
+• Vitamin D3 1000-2000 IU
+
+SLEEP HYGIENE:
+• No screens 1hr before bed
+• Cool bedroom 60-67°F
+• Consistent bedtime
+
+EVALUATION: 90/100 (Grade A)
+```
+
+---
+
+## 🔭 Future Enhancements
+
+- Iterative plan refinement based on evaluator feedback
+- Longitudinal progress tracking across sessions
+- Wearable data integration (sleep, HRV)
+- Crisis detection and automatic escalation
+
+---
+
+## ⚠️ Disclaimer
+
+**MoodMate is an AI wellness assistant for self-tracking and is NOT a substitute for professional medical or psychiatric advice.** If you are in crisis, please contact:
+
+- **988 Suicide & Crisis Lifeline:** Call/text 988 or visit [988lifeline.org](https://988lifeline.org/)
+- **Emergency Services:** Call 911 (US) or your local emergency number
+- **Crisis Text Line:** Text HOME to 741741
+
+Always consult healthcare providers before starting new supplements or treatments.
+
+---
+
+## 🙏 Acknowledgments
+
+This project was developed as part of the **5-Day AI Agents Intensive Course with Google (Agents for Good track)**, a collaborative educational initiative by **Google** and **Kaggle**.
+
+Special thanks to:
+- **Google** for developing the Agent Development Kit (ADK) and Gemini models that power this system
+- **Kaggle** for hosting the AI Agents Intensive course and providing learning resources
+- The **Google ADK team** for their comprehensive documentation and support
+- All instructors and mentors from the 5-Day AI Agents Intensive program
+
+**Powered by:**
+- [Google Agent Development Kit (ADK)](https://github.com/google/genai-agent-framework)
+- [Gemini 2.5 Flash Lite](https://ai.google.dev/)
