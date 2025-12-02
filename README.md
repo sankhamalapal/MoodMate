@@ -240,6 +240,3 @@ Special thanks to:
 - The **Google ADK team** for their comprehensive documentation and support
 - All instructors and mentors from the 5-Day AI Agents Intensive program
 
-**Powered by:**
-- [Google Agent Development Kit (ADK)](https://github.com/google/genai-agent-framework)
-- [Gemini 2.5 Flash Lite](https://ai.google.dev/)
