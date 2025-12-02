@@ -7,6 +7,7 @@
 **An empathetic multi-agent AI system providing structured mental wellness support through personalized check-ins and evidence-based action plans.**
 
 *Capstone Project for the 5-Day AI Agents Intensive Course with Google (Agents for Good track)*
+[▶️ Watch Demo Video](https://www.youtube.com/watch?v=0eQ-OA83HFk&list=PL6De2ZbS1kOxY843MrFj2RevGYmrnjXv8&index=2&pp=gAQBiAQB)
 
 </div>
 
